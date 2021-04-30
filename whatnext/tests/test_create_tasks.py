@@ -1,8 +1,9 @@
+import datetime
 import unittest
+
+from whatnext.data_model import Task
 from whatnext.graph import create_graph
 from whatnext.parser import parse
-from whatnext.data_model import Task
-import datetime
 
 
 class TestCreateTasks(unittest.TestCase):
@@ -137,4 +138,3 @@ if __name__ == "__main__":
     t = TestCreateTasks()
     t.test_create_multiple_tasks()
     t.test_dont_duplicate_existing()
-

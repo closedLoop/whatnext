@@ -12,11 +12,6 @@ __maintainer_email__ = "sean.kruzel@gmail.com"
 __github_username__ = "closedLoop"
 
 # Library Functions
-# __all__ = ["load_config", "BreakpointAPI"]
 
-# from .breakpoint.api import BreakpointAPI
 
 # Environmental variables
-# from .config import load_config
-
-# _api = "v1"

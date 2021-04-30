@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """
 The setup script is the centre of all activity in building, distributing,
 and installing modules using the Distutils. It is required for ``pip install``.
@@ -33,59 +31,104 @@ setuptools.setup(
 """
 
 from __future__ import print_function
+
 import os
-from datetime import date
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 
 # --- import your package ---
 import whatnext as package
 
-if __name__ == "__main__":
-    # --- Automatically generate setup parameters ---
-    # Your package name
-    PKG_NAME = package.__name__
+PLATFORMS = [
+    "Windows",
+    "MacOS",
+    "Unix",
+]
 
-    # Your GitHub user name
-    try:
-        GITHUB_USERNAME = package.__github_username__
-    except:
-        GITHUB_USERNAME = "Unknown-Github-Username"
+CLASSIFIERS = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Natural Language :: English",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Operating System :: Unix",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.4",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+]
+"""
+Full list can be found at: https://pypi.python.org/pypi?%3Aaction=list_classifiers
+"""
 
-    # Short description will be the description on PyPI
-    try:
-        SHORT_DESCRIPTION = package.__short_description__  # GitHub Short Description
-    except:
-        print("'__short_description__' not found in '%s.__init__.py'!" % PKG_NAME)
-        SHORT_DESCRIPTION = "No short description!"
+# --- Automatically generate setup parameters ---
+# Your package name
+PKG_NAME = package.__name__
 
-    # Long description will be the body of content on PyPI page
-    try:
-        LONG_DESCRIPTION = open("README.rst", "rb").read().decode("utf-8")
-    except:
-        LONG_DESCRIPTION = "No long description!"
+# Your GitHub user name
+try:
+    GITHUB_USERNAME = package.__github_username__
+except Exception:
+    GITHUB_USERNAME = "Unknown-Github-Username"
 
-    # Version number, VERY IMPORTANT!
-    VERSION = package.__version__
+# Short description will be the description on PyPI
+try:
+    SHORT_DESCRIPTION = package.__short_description__  # GitHub Short Description
+except Exception:
+    print("'__short_description__' not found in '%s.__init__.py'!" % PKG_NAME)
+    SHORT_DESCRIPTION = "No short description!"
 
-    # Author and Maintainer
-    try:
-        AUTHOR = package.__author__
-    except:
-        AUTHOR = "Unknown"
+# Long description will be the body of content on PyPI page
+try:
+    LONG_DESCRIPTION = open("README.rst", "rb").read().decode("utf-8")
+except Exception:
+    LONG_DESCRIPTION = "No long description!"
 
-    try:
-        AUTHOR_EMAIL = package.__author_email__
-    except:
-        AUTHOR_EMAIL = None
+# Version number, VERY IMPORTANT!
+VERSION = package.__version__
+
+# Author and Maintainer
+try:
+    AUTHOR = package.__author__
+except Exception:
+    AUTHOR = "Unknown"
+
+try:
+    AUTHOR_EMAIL = package.__author_email__
+except Exception:
+    AUTHOR_EMAIL = None
+
+
+def read_requirements_file(path):
+    """
+    Read requirements.txt, ignore comments
+    """
+    requires = list()
+    f = open(path, "rb")
+    for line in f.read().decode("utf-8").split("\n"):
+        line = line.strip()
+        if "#" in line:
+            line = line[: line.find("#")].strip()
+        if line:
+            requires.append(line)
+    return requires
+
+
+# pylint: disable=C901
+# pylint: disable=too-complex
+def config_and_install():
 
     try:
         MAINTAINER = package.__maintainer__
-    except:
+    except Exception:
         MAINTAINER = "Unknown"
 
     try:
         MAINTAINER_EMAIL = package.__maintainer_email__
-    except:
+    except Exception:
         MAINTAINER_EMAIL = None
 
     PACKAGES, INCLUDE_PACKAGE_DATA, PACKAGE_DATA, PY_MODULES = (
@@ -120,9 +163,6 @@ if __name__ == "__main__":
     # Project Url
     URL = "https://github.com/{0}/{1}".format(GITHUB_USERNAME, repository_name)
 
-    # Use todays date as GitHub release tag
-    github_release_tag = str(date.today())
-
     # Source code download url
     DOWNLOAD_URL = "https://pypi.python.org/pypi/{0}/{1}#downloads".format(
         PKG_NAME, VERSION
@@ -130,52 +170,13 @@ if __name__ == "__main__":
 
     try:
         LICENSE = package.__license__
-    except:
+    except Exception:
         print("'__license__' not found in '%s.__init__.py'!" % PKG_NAME)
         LICENSE = ""
 
-    PLATFORMS = [
-        "Windows",
-        "MacOS",
-        "Unix",
-    ]
-
-    CLASSIFIERS = [
-        "Development Status :: 4 - Beta",
-        "Intended Audience :: Developers",
-        "License :: OSI Approved :: Apache Software License",
-        "Natural Language :: English",
-        "Operating System :: Microsoft :: Windows",
-        "Operating System :: MacOS",
-        "Operating System :: Unix",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 3.4",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-    ]
-    """
-    Full list can be found at: https://pypi.python.org/pypi?%3Aaction=list_classifiers
-    """
-
-    def read_requirements_file(path):
-        """
-        Read requirements.txt, ignore comments
-        """
-        requires = list()
-        f = open(path, "rb")
-        for line in f.read().decode("utf-8").split("\n"):
-            line = line.strip()
-            if "#" in line:
-                line = line[: line.find("#")].strip()
-            if line:
-                requires.append(line)
-        return requires
-
     try:
         REQUIRES = read_requirements_file("requirements.txt")
-    except:
+    except Exception:
         print("'requirements.txt' not found!")
         REQUIRES = list()
 
@@ -183,12 +184,12 @@ if __name__ == "__main__":
 
     try:
         EXTRA_REQUIRE["tests"] = read_requirements_file("requirements-test.txt")
-    except:
+    except Exception:
         print("'requirements-test.txt' not found!")
 
     try:
         EXTRA_REQUIRE["docs"] = read_requirements_file("requirements-doc.txt")
-    except:
+    except Exception:
         print("'requirements-test.txt' not found!")
 
     setup(
@@ -219,6 +220,10 @@ if __name__ == "__main__":
             ]
         },
     )
+
+
+if __name__ == "__main__":
+    config_and_install()
 
 """
 Appendix

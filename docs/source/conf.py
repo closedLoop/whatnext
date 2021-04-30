@@ -15,9 +15,6 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
 
 import os
 from datetime import datetime
@@ -31,7 +28,6 @@ import whatnext
 
 # If your documentation needs a minimal Sphinx version, state it here.
 #
-# needs_sphinx = '1.0'
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
@@ -56,7 +52,6 @@ templates_path = ["_templates"]
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-# source_suffix = ['.rst', '.md']
 source_suffix = ".rst"
 
 # The master toctree document.
@@ -105,7 +100,6 @@ html_theme = "alabaster"
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -139,16 +133,12 @@ htmlhelp_basename = "whatnextdoc"
 latex_elements: Dict[str, str] = {
     # The paper size ('letterpaper' or 'a4paper').
     #
-    # 'papersize': 'letterpaper',
     # The font size ('10pt', '11pt' or '12pt').
     #
-    # 'pointsize': '10pt',
     # Additional stuff for the LaTeX preamble.
     #
-    # 'preamble': '',
     # Latex figure (float) alignment
     #
-    # 'figure_align': 'htbp',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -204,14 +194,7 @@ except Exception:
     print("no custom css found")
 
 # Add data for Jinja2
-# try:
-#     from whatnext.docs import doc_data
-# except Exception:
-#     doc_data = {}
 
-# jinja_contexts = {
-#     "doc_data": {"doc_data": doc_data},
-# }
 
 # Api Reference Doc
 

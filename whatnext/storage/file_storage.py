@@ -2,11 +2,10 @@ import datetime
 import json
 import logging
 import os
+import shutil
 
 import networkx as nx
 from networkx.readwrite.gml import read_gml, write_gml
-
-from ..data_model import Task
 
 logger = logging.getLogger(__file__)
 
@@ -33,8 +32,18 @@ def format_filename(fname: str = None) -> str:
     return fname
 
 
-def load_from_file(fname: str = None) -> nx.DiGraph:
-    task_graph = read_gml(format_filename(fname))
+def copy_file(fname: str, new_fname: str):
+    shutil.copyfile(fname, new_fname)
+
+
+def load_from_file(fname: str = None, make_backup=True) -> nx.DiGraph:
+
+    fname = format_filename(fname)
+
+    if make_backup:
+        copy_file(fname, fname + ".backup")
+
+    task_graph = read_gml(fname)
 
     for node_id in task_graph.nodes:
         if task_graph.nodes[node_id].get("kind", "task"):

@@ -1,11 +1,10 @@
 import datetime
 import getpass
 import logging
-import re
 from typing import List
 
-from dateparser.search import search_dates
 import networkx as nx
+from dateparser.search import search_dates
 
 from .data_model import Task
 from .tasks import create_task
@@ -118,4 +117,3 @@ def parse(graph: nx.DiGraph, s: str) -> nx.DiGraph:
                 graph.add_edge(src, dest)
                 logger.info(f"Creating Edge {src} -> {dest}")
     return graph
-

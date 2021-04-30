@@ -1,9 +1,8 @@
+import datetime
 import logging
-import os
 from typing import List
 
 import networkx as nx
-import datetime
 
 from .storage.file_storage import load_from_file, save_to_file
 
@@ -83,4 +82,3 @@ def load() -> nx.DiGraph:
 def save(graph: nx.DiGraph):
     fname = None
     save_to_file(graph, fname=fname)
-

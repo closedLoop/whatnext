@@ -2,13 +2,11 @@ import logging
 from typing import List
 
 import networkx as nx
-import pyfiglet
 import typer
 from colorama import init as init_colorama
 from tabulate import tabulate
 from termcolor import colored
 
-from .data_model import Task, TimeLog
 from .graph import create_graph, load, save
 from .parser import parse
 from .tasks import list_tasks
@@ -30,26 +28,19 @@ def get_banner(color="green"):
     # pylint: disable=anomalous-backslash-in-string
     banner = """
 >>                ___          ___     ___
->> |  | |__|  /\   |     |\ | |__  \_/  |   ___\\
->> |/\| |  | /~~\  |     | \| |___ / \  |      /
+>> |  | |__|  /\\   |     |\\ | |__  \\_/  |   ___\\
+>> |/\\| |  | /~~\\  |     | \\| |___ / \\  |      /
 >>
 """
     # Coloring https://pypi.org/project/colorama/
     return colored(
-        "\n".join([b for b in banner.splitlines() if len(b.strip())]), color=color,
+        "\n".join([b for b in banner.splitlines() if len(b.strip())]),
+        color=color,
     )
 
 
 # https://pypi.org/project/tabulate/
-# table = [
-#     ["Sun", 696000, 1989100000],
-#     ["Earth", 6371, 5973.6],
-#     ["Moon", 1737, 73.5],
-#     ["Mars", 3390, 641.85],
-# ]
-# print(tabulate(table))
 
-# header.__doc__ = get_banner()
 # CRUD Task
 
 # create_task
@@ -80,7 +71,8 @@ def show():
 @app.command("list")
 def cli_list_tasks(
     sort_by: str = typer.Option(
-        "importance", help="sort results by: importance, name, due, or id",
+        "importance",
+        help="sort results by: importance, name, due, or id",
     ),
     limit: int = 10,
     ascending: bool = False,
