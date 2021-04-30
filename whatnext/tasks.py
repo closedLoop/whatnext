@@ -18,9 +18,17 @@ logger = logging.getLogger(__file__)
 def create_task(graph: nx.DiGraph, task: Task) -> int:
     if task.task_id < 0:
         task.task_id = len(graph.nodes)
+    else:
+        if task.name == "_existing_node":
+            task_spec = task.dict(
+                exclude_defaults=True, exclude_none=True, exclude_unset=True
+            )
+            del task_spec["name"]
+            for k, v in task_spec.items():
+                graph.nodes[task.task_id][k] = v
+            return task.task_id
 
     task_spec = task.dict(exclude_defaults=True, exclude_none=True, exclude_unset=True)
-
     graph.add_node(task.task_id, kind="task", **task_spec)
     return task.task_id
 

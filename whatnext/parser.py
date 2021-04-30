@@ -56,7 +56,9 @@ def parse_command(s: str, graph: nx.DiGraph = None) -> Task:
 
     # Check if name uniquely matches existing node, if so
     if task_id == -1:
-        task_ids = [node_id for node_id in graph.nodes if graph.nodes[node_id] == name]
+        task_ids = [
+            node_id for node_id in graph.nodes if graph.nodes[node_id]["name"] == name
+        ]
         if len(task_ids) == 1:
             task_id = task_ids[0]
 
@@ -65,10 +67,13 @@ def parse_command(s: str, graph: nx.DiGraph = None) -> Task:
     due = get_due_date(s)
 
     words = s.strip().split(" ")
-    tags = [w for w in words if w.startswith("#")]
+    tags = [w.replace("!", "") for w in words if w.startswith("#")]
     urls = [w for w in words if is_url(w)]
-    users = [w for w in words if w.startswith("@") or is_email(w)]
+    users = [w.replace("!", "") for w in words if w.startswith("@") or is_email(w)]
     notes = []
+
+    if task_id >= 0:
+        name = "_existing_node"
 
     return Task(
         user_id=getpass.getuser(),

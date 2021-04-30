@@ -79,10 +79,12 @@ def show():
 
 @app.command("list")
 def cli_list_tasks(
-    sort_by: str = "importance",
+    sort_by: str = typer.Option(
+        "importance", help="sort results by: importance, name, due, or id",
+    ),
     limit: int = 10,
-    ascending=False,
-    all_tasks: bool = True,
+    ascending: bool = False,
+    all_tasks: bool = False,
     search: str = None,
     tags: List[str] = None,
     urls: List[str] = None,
