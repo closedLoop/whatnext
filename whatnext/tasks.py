@@ -3,6 +3,7 @@
 """
 import datetime
 import logging
+import os
 import re
 from typing import List, Optional
 
@@ -19,16 +20,9 @@ def create_task(graph: nx.DiGraph, task: Task) -> int:
         task.task_id = len(graph.nodes)
     else:
         if task.name == "_existing_node":
-            task_spec = task.dict(
-                exclude_defaults=True, exclude_none=True, exclude_unset=True
-            )
-            del task_spec["name"]
-            for k, v in task_spec.items():
-                graph.nodes[task.task_id][k] = v
             return task.task_id
 
-    task_spec = task.dict(exclude_defaults=True, exclude_none=True, exclude_unset=True)
-    graph.add_node(task.task_id, kind="task", **task_spec)
+    graph.add_node(task.task_id, task=task)
     return task.task_id
 
 
@@ -37,16 +31,26 @@ def delete_task(graph: nx.DiGraph, task_id: int) -> int:
 
 
 def get_task_from_graph(task_id: int, graph: nx.DiGraph) -> Task:
-    return Task(graph.nodes[task_id])
+
+    task = graph.nodes[task_id]["task"]
+    assert isinstance(task, Task)
+
+    if task.time_logs is not None and len(task.time_logs):
+        for time_logs_id, time_log in enumerate(task.time_logs):
+            if isinstance(time_log, dict):
+                raise TypeError("should be TimeLog")
+    return task
 
 
 def update_task_in_graph(task: Task, graph: nx.DiGraph) -> nx.DiGraph:
-    task_spec = task.dict(exclude_defaults=True, exclude_none=True, exclude_unset=True)
-    task_spec["time_logs"] = [
-        time_log.dict(exclude_defaults=True, exclude_none=True, exclude_unset=True)
-        for time_log in task_spec.get("time_logs", [])
-    ]
-    graph.nodes[task.task_id] = task_spec
+    graph._node[task.task_id]["task"] = task
+
+    # task_spec["time_logs"] = [
+    #     time_log
+    #     if isinstance(time_log, dict)
+    #     else time_log.dict(exclude_defaults=True, exclude_none=True, exclude_unset=True)
+    #     for time_log in task_spec.get("time_logs", [])
+
     return graph
 
 
@@ -57,6 +61,7 @@ def update_task(
     name: str = None,
     completed: bool = None,
     importance: float = None,
+    project: float = None,
     due: datetime.datetime = None,
 ) -> Task:
     """sets properties in a given task id by all values in kwargs
@@ -72,6 +77,8 @@ def update_task(
             task.name = name
         if completed is not None:
             task.completed = completed
+        if project is not None:
+            task.project = project
         if importance is not None:
             task.importance = float(importance)
         if due is not None:
@@ -198,6 +205,7 @@ def list_tasks(
     limit: int = 10,
     ascending=False,
     only_leaves=False,
+    all_projects=False,
     search: str = None,
     tags: Optional[List[str]] = None,
     urls: Optional[List[str]] = None,
@@ -213,13 +221,21 @@ def list_tasks(
         only_leaves=only_leaves,
     )
 
+    current_project = os.environ.get("WN_PROJECT", None)
+    if not all_projects and current_project is not None:
+        node_ids = [
+            node_id
+            for node_id in node_ids
+            if graph.nodes[node_id]["task"].project == current_project
+        ]
+
     # Regexp
     if search is not None and len(search):
         pattern = re.compile(search)
         node_ids = [
             node_id
             for node_id in node_ids
-            if pattern(graph.nodes[node_id].get("name", ""))
+            if pattern(graph.nodes[node_id]["task"].name or "")
         ]
 
     if tags is not None and len(tags):
@@ -227,7 +243,7 @@ def list_tasks(
         node_ids = [
             node_id
             for node_id in node_ids
-            if len(set(graph.nodes[node_id].get("tags", [])).intersection(tags))
+            if len(set(graph.nodes[node_id]["task"].tags or []).intersection(tags))
         ]
 
     if urls is not None and len(urls):
@@ -235,7 +251,7 @@ def list_tasks(
         node_ids = [
             node_id
             for node_id in node_ids
-            if len(set(graph.nodes[node_id].get("urls", [])).intersection(urls))
+            if len(set(graph.nodes[node_id]["task"].urls or []).intersection(urls))
         ]
 
     if users is not None and len(users):
@@ -243,7 +259,6 @@ def list_tasks(
         node_ids = [
             node_id
             for node_id in node_ids
-            if len(set(graph.nodes[node_id].get("users", [])).intersection(users))
+            if len(set(graph.nodes[node_id]["task"].users or [])).intersection(users)
         ]
-    print([graph.nodes[node_id] for node_id in node_ids])
     return [Task(**graph.nodes[node_id]) for node_id in node_ids]

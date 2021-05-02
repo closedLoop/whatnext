@@ -1,12 +1,12 @@
 import datetime
-import unittest
 
-from whatnext.data_model import Task
-from whatnext.graph import create_graph
-from whatnext.parser import parse
+from ..data_model import Task
+from ..graph import create_graph
+from ..parser import parse
+from ..tests.test_class import WhatNextTestCase
 
 
-class TestCreateTasks(unittest.TestCase):
+class TestCreateTasks(WhatNextTestCase):
     def test_create_multiple_tasks(self):
         graph = create_graph()
 
@@ -18,10 +18,15 @@ class TestCreateTasks(unittest.TestCase):
         self.assertTupleEqual(tuple(graph.edges), ((0, 1), (0, 2), (1, 3), (2, 3)))
 
         # Assert properties are correct and are parsed into valid Tasks
-        task_a = Task(**graph.nodes[0])
-        task_b = Task(**graph.nodes[1])
-        task_c = Task(**graph.nodes[2])
-        task_d = Task(**graph.nodes[3])
+        task_a = graph.nodes[0]["task"]
+        task_b = graph.nodes[1]["task"]
+        task_c = graph.nodes[2]["task"]
+        task_d = graph.nodes[3]["task"]
+
+        self.assertIsInstance(task_a, Task)
+        self.assertIsInstance(task_b, Task)
+        self.assertIsInstance(task_c, Task)
+        self.assertIsInstance(task_d, Task)
 
         self.assertEqual(task_a.task_id, 0)
         self.assertEqual(task_b.task_id, 1)
@@ -93,9 +98,13 @@ class TestCreateTasks(unittest.TestCase):
         self.assertTupleEqual(tuple(graph.edges), ((0, 1), (0, 2), (1, 2)))
 
         # Assert properties are correct and are parsed into valid Tasks
-        task_a = Task(**graph.nodes[0])
-        task_b = Task(**graph.nodes[1])
-        task_c = Task(**graph.nodes[2])
+        task_a = graph.nodes[0]["task"]
+        task_b = graph.nodes[1]["task"]
+        task_c = graph.nodes[2]["task"]
+
+        self.assertIsInstance(task_a, Task)
+        self.assertIsInstance(task_b, Task)
+        self.assertIsInstance(task_c, Task)
 
         self.assertEqual(task_a.task_id, 0)
         self.assertEqual(task_b.task_id, 1)
@@ -136,5 +145,7 @@ class TestCreateTasks(unittest.TestCase):
 
 if __name__ == "__main__":
     t = TestCreateTasks()
+    t.setUpClass()
     t.test_create_multiple_tasks()
     t.test_dont_duplicate_existing()
+    t.tearDownClass()

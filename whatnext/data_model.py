@@ -10,13 +10,14 @@ class TimeLog(BaseModel):
     user_id: str
     start_time: Optional[datetime.datetime]
     end_time: Optional[datetime.datetime]
-    note: str
+    note: Optional[str]
 
 
 class Task(BaseModel):
     user_id: str
     task_id: int
     name: str
+    project: str
     importance: float
     completed: Optional[bool]
     due: Optional[datetime.datetime]

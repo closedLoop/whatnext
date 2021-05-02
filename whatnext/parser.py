@@ -1,6 +1,7 @@
 import datetime
 import getpass
 import logging
+import os
 from typing import List
 
 import networkx as nx
@@ -31,7 +32,7 @@ def get_due_date(s: str) -> datetime.datetime:
         return None
 
     # removes weird false positive from search_dates
-    if date_candidates[0][0] == "on":
+    if date_candidates[0][0] in {"on", "out"}:
         return None
 
     return date_candidates[0][1]
@@ -56,7 +57,9 @@ def parse_command(s: str, graph: nx.DiGraph = None) -> Task:
     # Check if name uniquely matches existing node, if so
     if task_id == -1:
         task_ids = [
-            node_id for node_id in graph.nodes if graph.nodes[node_id]["name"] == name
+            node_id
+            for node_id in graph.nodes
+            if graph.nodes[node_id]["task"].name == name
         ]
         if len(task_ids) == 1:
             task_id = task_ids[0]
@@ -78,6 +81,7 @@ def parse_command(s: str, graph: nx.DiGraph = None) -> Task:
         user_id=getpass.getuser(),
         task_id=task_id,
         name=name,
+        project=os.environ.get("WN_PROJECT", "MAIN"),
         importance=importance,
         due=due,
         tags=tags,

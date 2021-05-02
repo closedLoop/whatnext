@@ -2,7 +2,7 @@
 Whatnext
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __short_description__ = "Portfolios. Made Better."
 __license__ = "Astrocyte Research, Inc"
 __author__ = "Sean Kruzel"

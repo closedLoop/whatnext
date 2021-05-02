@@ -22,30 +22,30 @@ def sort_nodes(
     subgraph = graph.copy(as_view=False)
 
     for node_id in graph.nodes:
-        if graph.nodes[node_id].get("kind", "task") == "task":
-            if graph.nodes[node_id].get("completed", False):
+        if graph.nodes[node_id]["task"].kind or "task" == "task":
+            if graph.nodes[node_id]["task"].completed:
                 subgraph.remove_node(node_id)
 
     if only_leaves:
-        print("only_leaves", type(only_leaves), only_leaves)
         node_ids = [node_id for node_id, degree in subgraph.in_degree() if degree == 0]
     else:
         node_ids = subgraph.nodes
 
     if sort_by == "importance":
         node_scores = [
-            (node_id, subgraph.nodes[node_id].get("importance", 0))
+            (node_id, subgraph.nodes[node_id]["task"].importance or 0)
             for node_id in node_ids
         ]
     elif sort_by == "id":
         node_scores = [(node_id, node_id) for node_id in node_ids]
     elif sort_by == "name":
         node_scores = [
-            (node_id, subgraph.nodes[node_id].get("name", "")) for node_id in node_ids
+            (node_id, subgraph.nodes[node_id]["task"].name or "")
+            for node_id in node_ids
         ]
     elif sort_by == "due":
         node_scores = [
-            (node_id, subgraph.nodes[node_id].get("due", datetime.datetime.now()))
+            (node_id, subgraph.nodes[node_id]["task"].due or datetime.datetime.now())
             for node_id in node_ids
         ]
 

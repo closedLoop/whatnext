@@ -12,7 +12,7 @@ from .tasks import get_task_from_graph, update_task_in_graph
 logger = logging.getLogger(__file__)
 
 
-def create_timelog(graph: nx.DiGraph, task_id: int, time_log: TimeLog) -> int:
+def create_timelog(graph: nx.DiGraph, task_id: int, note: str = None) -> nx.DiGraph:
 
     task = get_task_from_graph(task_id, graph)
 
@@ -22,8 +22,15 @@ def create_timelog(graph: nx.DiGraph, task_id: int, time_log: TimeLog) -> int:
     if task.time_logs is None:
         task.time_logs = []
 
+    time_log = TimeLog(
+        user_id=task.user_id,
+        task_id=task_id,
+        note=note,
+        start_time=datetime.datetime.now(),
+    )
     task.time_logs.append(time_log)
     graph = update_task_in_graph(task, graph)
+    return graph
 
 
 def delete_timelog(graph: nx.DiGraph, task_id: int, time_log_id: int) -> int:

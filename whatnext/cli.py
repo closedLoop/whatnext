@@ -1,4 +1,5 @@
 import logging
+import os
 from typing import List
 
 import networkx as nx
@@ -10,6 +11,7 @@ from termcolor import colored
 from .graph import create_graph, load, save
 from .parser import parse
 from .tasks import list_tasks
+from .time_logs import create_timelog
 
 # Global variables (I know, I know...)
 app = typer.Typer()
@@ -81,6 +83,7 @@ def cli_list_tasks(
     tags: List[str] = None,
     urls: List[str] = None,
     users: List[str] = None,
+    verbose: bool = False,
 ):
 
     tasks = list_tasks(
@@ -98,9 +101,67 @@ def cli_list_tasks(
 
 
 @app.command("task")
-def next_task():
-    global graph
-    print("NXT")
+def next_task(
+    sort_by: str = typer.Option(
+        "importance",
+        help="sort results by: importance, name, due, or id",
+    ),
+    ascending: bool = False,
+    all_tasks: bool = False,
+    search: str = None,
+    tags: List[str] = None,
+    urls: List[str] = None,
+    users: List[str] = None,
+    verbose: bool = False,
+):
+
+    tasks = list_tasks(
+        graph,
+        sort_by=sort_by,
+        limit=1,
+        ascending=ascending,
+        only_leaves=not all_tasks,
+        search=search,
+        tags=tags,
+        urls=urls,
+        users=users,
+    )
+
+    if verbose:
+        fields = [
+            "task_id",
+            "importance",
+            "name",
+            "due",
+            "tags",
+            "urls",
+            "users",
+            "notes",
+            "time_logs",
+            "completed",
+        ]
+    else:
+        fields = [
+            "task_id",
+            "importance",
+            "name",
+            "due",
+            "tags",
+            "users",
+            "completed",
+        ]
+
+    table = tabulate(
+        [[t.dict()[field] for field in fields] for t in tasks], headers=fields
+    )
+    typer.echo(table)
+
+
+@app.command()
+def start(task_id: int, note: str = None):
+    """Starts a task"""
+    create_timelog(graph, task_id, note=note)
+    save(graph)
 
 
 @app.command()
@@ -124,6 +185,18 @@ def add(new_task_or_tasks: str):
     num_tasks2 = len(graph.nodes)
     typer.echo(f"Created {num_tasks2 - num_tasks} tasks")
     save(graph)
+
+
+@app.command("set-storage")
+def set_storage(new_directory: str):
+    os.environ["WN_STORAGE_DIR"] = new_directory
+    typer.echo(f"WN_STORAGE_DIR set to {new_directory}")
+
+
+@app.command("set-project")
+def set_project(project: str):
+    os.environ["WN_PROJECT"] = project
+    typer.echo(f"WN_PROJECT set to {project}")
 
 
 def main():
