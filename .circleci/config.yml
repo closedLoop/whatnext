@@ -10,6 +10,9 @@ jobs:
       - checkout
       - python/load-cache
       - python/install-deps
+      - run:
+          command: python3 -m pip install -r requirements-test.txt
+          name: Test Requirements
       - python/save-cache
       - run:
           command: python3 -m pip install --upgrade setuptools wheel coverage && rm ./dist/whatnext* || python3 setup.py sdist bdist_wheel
