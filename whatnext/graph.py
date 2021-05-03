@@ -22,9 +22,8 @@ def sort_nodes(
     subgraph = graph.copy(as_view=False)
 
     for node_id in graph.nodes:
-        if graph.nodes[node_id]["task"].kind or "task" == "task":
-            if graph.nodes[node_id]["task"].completed:
-                subgraph.remove_node(node_id)
+        if graph.nodes[node_id]["task"].completed:
+            subgraph.remove_node(node_id)
 
     if only_leaves:
         node_ids = [node_id for node_id, degree in subgraph.in_degree() if degree == 0]

@@ -261,4 +261,5 @@ def list_tasks(
             for node_id in node_ids
             if len(set(graph.nodes[node_id]["task"].users or [])).intersection(users)
         ]
-    return [Task(**graph.nodes[node_id]) for node_id in node_ids]
+
+    return [graph.nodes[node_id]["task"] for node_id in node_ids]

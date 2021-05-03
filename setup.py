@@ -21,7 +21,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: Astrocyte Research - Proprietary License",
+        "License :: Sean Kruzel - Proprietary License",
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',

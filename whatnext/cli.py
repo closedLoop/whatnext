@@ -97,7 +97,35 @@ def cli_list_tasks(
         urls=urls,
         users=users,
     )
-    typer.echo(tabulate([t.dict() for t in tasks]))
+
+    if verbose:
+        fields = [
+            "task_id",
+            "importance",
+            "name",
+            "due",
+            "tags",
+            "urls",
+            "users",
+            "notes",
+            "time_logs",
+            "completed",
+        ]
+    else:
+        fields = [
+            "task_id",
+            "importance",
+            "name",
+            "due",
+            "tags",
+            "users",
+            "completed",
+        ]
+
+    table = tabulate(
+        [[t.dict()[field] for field in fields] for t in tasks], headers=fields
+    )
+    typer.echo(table)
 
 
 @app.command("task")

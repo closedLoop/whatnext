@@ -3,10 +3,10 @@
 Release and Version History
 ==============================================================================
 
-1.0.0 (2020-12-03)
+0.2.1 (2020-05-03)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
- * Implemented BreakpointAPI to reflect API at https://analysis.whatnext.com/docs
+ * TODO
 
 **Minor Improvements**
  * Code cleanup
@@ -17,7 +17,7 @@ Release and Version History
 **Miscellaneous**
  * `pre-commit` hooks defined in `.pre-commit-config.yaml`
 
-0.0.1 (2020-08-14)
+0.0.1 (2020-04-20)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - First release
