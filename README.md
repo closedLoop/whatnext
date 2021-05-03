@@ -1,5 +1,5 @@
 
-[![circleci](https://circleci.com/gh/closedloop/whatnext/tree/master.svg?style=shield)](https://circleci.com/gh/closedloop/whatnext/tree/master)
+[![closedloop](https://circleci.com/gh/closedLoop/whatnext.svg?style=shield)](https://circleci.com/gh/closedLoop/whatnext)
 
 [![codecov](https://codecov.io/gh/closedLoop/whatnext/branch/main/graph/badge.svg?token=ZZH9IU8TDF)](https://codecov.io/gh/closedLoop/whatnext)
 
@@ -192,4 +192,4 @@ See also the list of [contributors](https://github.com/closedloop/whatnext/contr
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the Apache 2.0 with Commons Clause - see the [LICENSE.txt](LICENSE.txt) file for details

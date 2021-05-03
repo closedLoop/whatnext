@@ -1,33 +1,4 @@
-"""
-The setup script is the centre of all activity in building, distributing,
-and installing modules using the Distutils. It is required for ``pip install``.
-
-See more: https://docs.python.org/2/distutils/setupscript.html
-
-import setuptools
-
-with open("README.md", "r") as fh:
-    long_description = fh.read()
-
-setuptools.setup(
-    name="whatnext",
-    version="0.1.0",
-    author="Sean Kruzel",
-    author_email="sean.kruzel@gmail.com",
-    description="For devs whose heads overflow with tasks and need a way to prioritize",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/closedloop/whatnext",
-    packages=setuptools.find_packages(),
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: Sean Kruzel - Proprietary License",
-        "Operating System :: OS Independent",
-    ],
-    python_requires='>=3.6',
-)
-
-
+"""Whatnext
 """
 
 from __future__ import print_function
@@ -46,7 +17,7 @@ PLATFORMS = [
 ]
 
 CLASSIFIERS = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: Apache Software License",
     "Natural Language :: English",
@@ -59,6 +30,7 @@ CLASSIFIERS = [
     "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
 ]
 """
 Full list can be found at: https://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -83,7 +55,7 @@ except Exception:
 
 # Long description will be the body of content on PyPI page
 try:
-    LONG_DESCRIPTION = open("README.rst", "rb").read().decode("utf-8")
+    LONG_DESCRIPTION = open("README.md", "rb").read().decode("utf-8")
 except Exception:
     LONG_DESCRIPTION = "No long description!"
 
@@ -224,57 +196,3 @@ def config_and_install():
 
 if __name__ == "__main__":
     config_and_install()
-
-"""
-Appendix
---------
-::
-
-Frequent used classifiers List = [
-    "Development Status :: 1 - Planning",
-    "Development Status :: 2 - Pre-Alpha",
-    "Development Status :: 3 - Alpha",
-    "Development Status :: 4 - Beta",
-    "Development Status :: 5 - Production/Stable",
-    "Development Status :: 6 - Mature",
-    "Development Status :: 7 - Inactive",
-
-    "Intended Audience :: Customer Service",
-    "Intended Audience :: Developers",
-    "Intended Audience :: Education",
-    "Intended Audience :: End Users/Desktop",
-    "Intended Audience :: Financial and Insurance Industry",
-    "Intended Audience :: Healthcare Industry",
-    "Intended Audience :: Information Technology",
-    "Intended Audience :: Legal Industry",
-    "Intended Audience :: Manufacturing",
-    "Intended Audience :: Other Audience",
-    "Intended Audience :: Religion",
-    "Intended Audience :: Science/Research",
-    "Intended Audience :: System Administrators",
-    "Intended Audience :: Telecommunications Industry",
-
-    "License :: OSI Approved :: BSD License",
-    "License :: OSI Approved :: MIT License",
-    "License :: OSI Approved :: Apache Software License",
-    "License :: OSI Approved :: GNU General Public License (GPL)",
-    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
-
-    "Natural Language :: English",
-    "Natural Language :: Chinese (Simplified)",
-
-    "Operating System :: Microsoft :: Windows",
-    "Operating System :: MacOS",
-    "Operating System :: Unix",
-
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 2",
-    "Programming Language :: Python :: 2.7",
-    "Programming Language :: Python :: 2 :: Only",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.4",
-    "Programming Language :: Python :: 3.5",
-    "Programming Language :: Python :: 3.6",
-    "Programming Language :: Python :: 3 :: Only",
-]
-"""
