@@ -1,40 +1,22 @@
 
-.. image:: https://circleci.com/gh/closedloop/whatnext/tree/master.svg?style=shield
-    :target: https://circleci.com/gh/closedloop/whatnext/tree/master
+[https://circleci.com/gh/closedloop/whatnext/tree/master.svg?style=shield](https://circleci.com/gh/closedloop/whatnext/tree/master)
 
-.. image:: https://codecov.io/gh/closedloop/whatnext/branch/master/graph/badge.svg?token=6NVZUGMEZ8
-  :target: https://codecov.io/gh/closedloop/whatnext
+[https://codecov.io/gh/closedloop/whatnext/branch/master/graph/badge.svg?token=6NVZUGMEZ8](https://codecov.io/gh/closedloop/whatnext)
 
-.. image:: https://img.shields.io/pypi/v/whatnext.svg
-    :target: https://pypi.python.org/pypi/whatnext
+[https://img.shields.io/pypi/v/whatnext.svg](https://pypi.python.org/pypi/whatnext)
 
-.. image:: https://img.shields.io/pypi/l/whatnext.svg
-    :target: https://pypi.python.org/pypi/whatnext
+[https://img.shields.io/pypi/l/whatnext.svg](https://pypi.python.org/pypi/whatnext)
 
-.. image:: https://img.shields.io/pypi/pyversions/whatnext.svg
-    :target: https://pypi.python.org/pypi/whatnext
+[https://img.shields.io/pypi/pyversions/whatnext.svg](https://pypi.python.org/pypi/whatnext)
 
-.. image:: https://img.shields.io/badge/STAR_Me_on_GitHub!--None.svg?style=social
-    :target: https://github.com/closedloop/whatnext
+[https://img.shields.io/badge/STAR_Me_on_GitHub!--None.svg?style=social](https://github.com/closedloop/whatnext)
 
 ------
 
+[https://img.shields.io/badge/Link-GitHub-blue.svg](https://github.com/closedloop/whatnext)
 
-.. image:: https://img.shields.io/badge/Link-Install-blue.svg
-      :target: `install`_
-
-.. image:: https://img.shields.io/badge/Link-GitHub-blue.svg
-      :target: https://github.com/closedloop/whatnext
-
-.. image:: https://img.shields.io/badge/Link-Submit_Issue-blue.svg
-      :target: https://github.com/closedloop/whatnext/issues
-
-.. image:: https://img.shields.io/badge/Link-Request_Feature-blue.svg
-      :target: https://github.com/closedloop/whatnext/issues
-
-.. image:: https://img.shields.io/badge/Link-Download-blue.svg
-      :target: https://pypi.org/pypi/whatnext#files
-
+[https://img.shields.io/badge/Link-Submit_Issue-blue.svg](https://github.com/closedloop/whatnext/issues)
+[https://img.shields.io/badge/Link-Request_Feature-blue.svg](https://github.com/closedloop/whatnext/issues)
 
 ```
 >>                ___          ___     ___
@@ -57,6 +39,7 @@ $ pip install whatnext
 $ whatnext add "create your first task & grab coffee! -> create your second"
 
 $ whatnext task  # Shows grab coffee
+
 ```
 
 The syntax is simple:

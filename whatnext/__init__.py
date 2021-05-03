@@ -2,7 +2,7 @@
 Whatnext
 """
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __short_description__ = (
     "For founders & devs whose heads overflow with tasks and dependencies"
 )

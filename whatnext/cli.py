@@ -57,17 +57,23 @@ def get_banner(color="green"):
 def show():
     # Taken from https://codegolf.stackexchange.com/questions/11693/ascii-visualize-a-graph#
     # https://stackoverflow.com/questions/834395/python-ascii-graph-drawing
-    R = " ".join([",".join(e) for e in graph.edges()])
+    R = " ".join([",".join([str(e2) for e2 in e]) for e in graph.edges()])
 
     # TODO more sophisticed sorting
     V = sorted(list(set(R) - {","}))
     T = [" "] * 40
+    lines = []
     for e in R.split():
         x, y = sorted(map(V.index, e[::2]))
-        typer.echo(" ".join(T[:x] + ["+" + "--" * (y - x - 1) + "->"] + T[y + 1 :]))
+        line = " ".join(T[:x] + ["+" + "--" * (y - x - 1) + "->"] + T[y + 1 :])
+        lines.append(line)
         T[x] = T[y] = "|"
-        typer.echo(" ".join(T))
-    typer.echo(colored(" ".join(V), color="green"))
+        line = " ".join(T)
+        lines.append(line)
+    line = colored(" ".join(V), color="green")
+    lines.append(line)
+
+    typer.echo("\n".join(lines))
 
 
 @app.command("list")
