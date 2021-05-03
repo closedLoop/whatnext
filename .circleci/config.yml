@@ -1,0 +1,30 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
+
+jobs:
+  build-and-test:
+    executor: python/default
+    steps:
+      - checkout
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
+      - run:
+          command: python3 -m pip install --upgrade setuptools wheel coverage && rm ./dist/whatnext* || python3 setup.py sdist bdist_wheel
+          name: Build
+      - run:
+          command: ls ./dist/whatnext*.whl | xargs pip install
+          name: Install
+      - run:
+          command: python -m coverage erase && python -m coverage run -m pytest -s --tb=native
+          name: Test
+      - run:
+          command: python -m coverage xml && bash <(curl -s https://codecov.io/bash)
+          name: Update code coverage
+
+workflows:
+  main:
+    jobs:
+      - build-and-test
