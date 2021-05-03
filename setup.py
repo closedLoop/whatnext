@@ -54,8 +54,9 @@ except Exception:
     SHORT_DESCRIPTION = "No short description!"
 
 # Long description will be the body of content on PyPI page
+# TODO use `m2r README.me` to update README.rst
 try:
-    LONG_DESCRIPTION = open("README.md", "rb").read().decode("utf-8")
+    LONG_DESCRIPTION = open("README.rst", "rb").read().decode("utf-8")
 except Exception:
     LONG_DESCRIPTION = "No long description!"
 
@@ -129,12 +130,6 @@ def config_and_install():
             PKG_NAME,
         ]
 
-    # The project directory name is the GitHub repository name
-    repository_name = os.path.basename(os.path.dirname(__file__))
-
-    # Project Url
-    URL = "https://github.com/{0}/{1}".format(GITHUB_USERNAME, repository_name)
-
     # Source code download url
     DOWNLOAD_URL = "https://pypi.python.org/pypi/{0}/{1}#downloads".format(
         PKG_NAME, VERSION
@@ -177,7 +172,7 @@ def config_and_install():
         include_package_data=INCLUDE_PACKAGE_DATA,
         package_data=PACKAGE_DATA,
         py_modules=PY_MODULES,
-        url=URL,
+        url="https://github.com/closedLoop/whatnext",
         download_url=DOWNLOAD_URL,
         classifiers=CLASSIFIERS,
         platforms=PLATFORMS,
