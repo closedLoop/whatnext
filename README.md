@@ -1,22 +1,18 @@
 
-[https://circleci.com/gh/closedloop/whatnext/tree/master.svg?style=shield](https://circleci.com/gh/closedloop/whatnext/tree/master)
+[![circleci](https://circleci.com/gh/closedloop/whatnext/tree/master.svg?style=shield)](https://circleci.com/gh/closedloop/whatnext/tree/master)
 
-[https://codecov.io/gh/closedloop/whatnext/branch/master/graph/badge.svg?token=6NVZUGMEZ8](https://codecov.io/gh/closedloop/whatnext)
+[![codecov](https://codecov.io/gh/closedLoop/whatnext/branch/main/graph/badge.svg?token=ZZH9IU8TDF)](https://codecov.io/gh/closedLoop/whatnext)
 
-[https://img.shields.io/pypi/v/whatnext.svg](https://pypi.python.org/pypi/whatnext)
+[![pypi](https://img.shields.io/pypi/v/whatnext.svg)](https://pypi.python.org/pypi/whatnext)
 
-[https://img.shields.io/pypi/l/whatnext.svg](https://pypi.python.org/pypi/whatnext)
+[![versions](https://img.shields.io/pypi/pyversions/whatnext.svg)](https://pypi.python.org/pypi/whatnext)
 
-[https://img.shields.io/pypi/pyversions/whatnext.svg](https://pypi.python.org/pypi/whatnext)
-
-[https://img.shields.io/badge/STAR_Me_on_GitHub!--None.svg?style=social](https://github.com/closedloop/whatnext)
+[![starme](https://img.shields.io/badge/STAR_Me_on_GitHub!--None.svg?style=social)](https://github.com/closedloop/whatnext)
 
 ------
 
-[https://img.shields.io/badge/Link-GitHub-blue.svg](https://github.com/closedloop/whatnext)
-
-[https://img.shields.io/badge/Link-Submit_Issue-blue.svg](https://github.com/closedloop/whatnext/issues)
-[https://img.shields.io/badge/Link-Request_Feature-blue.svg](https://github.com/closedloop/whatnext/issues)
+[![GitHub](https://img.shields.io/badge/Link-GitHub-blue.svg)](https://github.com/closedloop/whatnext)
+[![issues](https://img.shields.io/badge/Link-Submit_Issue-blue.svg)](https://github.com/closedloop/whatnext/issues)
 
 ```
 >>                ___          ___     ___
