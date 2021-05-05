@@ -36,7 +36,7 @@ def get_banner(color="green"):
 """
     # Coloring https://pypi.org/project/colorama/
     return colored(
-        "\n".join([b for b in banner.splitlines() if len(b.strip())]),
+        "\n".join(b for b in banner.splitlines() if len(b.strip())),
         color=color,
     )
 
@@ -57,7 +57,7 @@ def get_banner(color="green"):
 def show():
     # Taken from https://codegolf.stackexchange.com/questions/11693/ascii-visualize-a-graph#
     # https://stackoverflow.com/questions/834395/python-ascii-graph-drawing
-    R = " ".join([",".join([str(e2) for e2 in e]) for e in graph.edges()])
+    R = " ".join(",".join(str(e2) for e2 in e) for e in graph.edges())
 
     # TODO more sophisticed sorting
     V = sorted(list(set(R) - {","}))

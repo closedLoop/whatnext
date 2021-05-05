@@ -79,7 +79,7 @@ def read_requirements_file(path):
     """
     Read requirements.txt, ignore comments
     """
-    requires = list()
+    requires = []
     f = open(path, "rb")
     for line in f.read().decode("utf-8").split("\n"):
         line = line.strip()
@@ -145,9 +145,9 @@ def config_and_install():
         REQUIRES = read_requirements_file("requirements.txt")
     except Exception:
         print("'requirements.txt' not found!")
-        REQUIRES = list()
+        REQUIRES = []
 
-    EXTRA_REQUIRE = dict()
+    EXTRA_REQUIRE = {}
 
     try:
         EXTRA_REQUIRE["tests"] = read_requirements_file("requirements-test.txt")
